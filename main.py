@@ -1,3 +1,4 @@
 import Automaton
-aut = Automaton(100, 3, 25, 25, 25, 25, 50)
+
+aut = Automaton.Automaton(100, 3, 1, 0, 0, 0, 50)
 aut.run()
