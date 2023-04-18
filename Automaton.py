@@ -98,6 +98,7 @@ class Automaton:
             self.generation += 1  # update the generation
             print(self.generation, " ", )
             self.print_array()
-            time.sleep(5)  # waits for 1 second
+            time.sleep(5)
+            # waits for 1 second
 
 

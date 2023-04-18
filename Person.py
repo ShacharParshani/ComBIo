@@ -15,5 +15,5 @@ class Person:
         self.count_get = 0  # count how many times this person got the rumor in the current generation
         self.pre_count_get = 0  # like count_get, for the previous generation
         self.prevent = 0  # 0 if the person is not prevented from spreading the rumor,
-        # otherwise - the last generation he spreeded
+        # otherwise - the last generation he spreaded
         # which generation the person spreaded the rumor
