@@ -13,7 +13,8 @@ class Automaton:
         self.pros2 = pros2  # probabilities of s2
         self.pros3 = pros3  # probabilities of s3
         self.pros4 = pros4  # probabilities of s4
-        self.matrix = [[None for j in range(100)] for i in range(100)]  # create a 2D array
+        # self.matrix = [[None for j in range(100)] for i in range(100)]  # create a 2D array
+        self.matrix = [[random.random() < 0.5 for x in range(100)] for y in range(100)]
 
     def create_matrix(self):
         # Define the options and their probabilities
