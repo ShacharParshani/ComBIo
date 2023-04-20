@@ -36,13 +36,29 @@ endGen_text_box = InputTextBox("endGen:", pygame.Rect(10, 240, 150, 30))
 submit_button = pygame.Rect(200, 240, 150, 30)
 submit_text = font.render("Submit", True, (100, 50, 80))
 
-
 # Define the function to be executed when the submit button is clicked
 def submit_function():
     global automat
-    automat = Automaton(p_text_box.input_text, l_text_box.input_text, pros1_text_box.input_text, pros2_text_box.input_text,
-                    pros3_text_box.input_text, pros4_text_box.input_text, endGen_text_box.input_text)
+    automat = Automaton(float(p_text_box.input_text),
+                        float(l_text_box.input_text),
+                        float(pros1_text_box.input_text),
+                        float(pros2_text_box.input_text),
+                        float(pros3_text_box.input_text),
+                        float(pros4_text_box.input_text),
+                        float(endGen_text_box.input_text))
     print(automat.p)
+
+def draw_matrix():
+    # Draw the matrix
+    cell_size = 7
+    for x in range(matrix_width):
+        for y in range(matrix_height):
+            rect = pygame.Rect(x * cell_size, y * cell_size, cell_size, cell_size)
+
+            if automat.matrix[y][x].gen != -1:
+                pygame.draw.rect(screen, (255, 192, 203), rect, 0)
+            else:
+                pygame.draw.rect(screen, (255, 255, 255), rect, 0)
 
 
 # Define the game loop
@@ -80,7 +96,6 @@ while running:
 
             if endGen_text_box.input_box.collidepoint(pygame.mouse.get_pos()):
                 endGen_text_box.GetPos(event, font, screen)
-
     # Fill the background
     screen.fill((255, 255, 255))
 
@@ -103,32 +118,34 @@ while running:
 
     else:
 
+        # automat.create_matrix()
+        automat.create_matrix()
+
         # Fill the background
         screen.fill((255, 255, 255))
 
         # Create the screen
         screen = pygame.display.set_mode((screen_width, screen_height))
 
+        automat.random_starter()
+        draw_matrix()
+        pygame.display.update()
+        time.sleep(2)
+
+        automat.first_gen()
+        draw_matrix()
+        pygame.display.update()
+
         # Run the matrix loop
-        while True:
-            automat.matrix = [[random.random() < 0.5 for x in range(100)] for y in range(100)]
-
-            # Draw the matrix
-            cell_size = 7
-            for x in range(matrix_width):
-                for y in range(matrix_height):
-                    rect = pygame.Rect(x * cell_size, y * cell_size, cell_size, cell_size)
-
-                    if automat.matrix[y][x]:
-                        pygame.draw.rect(screen, (255, 192, 203), rect, 0)
-                    else:
-                        pygame.draw.rect(screen, (255, 255, 255), rect, 0)
-
-            # Update the display
+        while automat.generation <= automat.endGen:
+            automat.gen_running()
+            draw_matrix()
             pygame.display.update()
+            time.sleep(2)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
-            time.sleep(1)
+
+        time.sleep(100)
