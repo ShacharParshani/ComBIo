@@ -24,12 +24,12 @@ pygame.display.set_caption("Shachar & Liel")
 font = pygame.font.SysFont('Arial', 16)
 
 # Define the text boxes
-p_text_box = InputTextBox("P:", pygame.Rect(10, 30, 150, 30))
+p_text_box = InputTextBox("P: (between 0-1)", pygame.Rect(10, 30, 150, 30))
 l_text_box = InputTextBox("L:", pygame.Rect(200, 30, 150, 30))
-pros1_text_box = InputTextBox("pros1:", pygame.Rect(10, 100, 150, 30))
-pros2_text_box = InputTextBox("pros2:", pygame.Rect(200, 100, 150, 30))
-pros3_text_box = InputTextBox("pros3:", pygame.Rect(10, 170, 150, 30))
-pros4_text_box = InputTextBox("pros4:", pygame.Rect(200, 170, 150, 30))
+pros1_text_box = InputTextBox("pros1: (between 0-1)", pygame.Rect(10, 100, 150, 30))
+pros2_text_box = InputTextBox("pros2: (between 0-1)", pygame.Rect(200, 100, 150, 30))
+pros3_text_box = InputTextBox("pros3: (between 0-1)", pygame.Rect(10, 170, 150, 30))
+pros4_text_box = InputTextBox("pros4: (between 0-1)", pygame.Rect(200, 170, 150, 30))
 endGen_text_box = InputTextBox("endGen:", pygame.Rect(10, 240, 150, 30))
 
 # Define the submit button
@@ -55,7 +55,9 @@ def draw_matrix():
         for y in range(matrix_height):
             rect = pygame.Rect(x * cell_size, y * cell_size, cell_size, cell_size)
 
-            if automat.matrix[y][x].gen != -1:
+            if automat.matrix[y][x] is None:
+                pygame.draw.rect(screen, (0, 0, 0), rect, 0)
+            elif automat.matrix[y][x].gen != -1:
                 pygame.draw.rect(screen, (255, 192, 203), rect, 0)
             else:
                 pygame.draw.rect(screen, (255, 255, 255), rect, 0)
@@ -130,7 +132,7 @@ while running:
         automat.random_starter()
         draw_matrix()
         pygame.display.update()
-        time.sleep(2)
+        time.sleep(0.5)
 
         automat.first_gen()
         draw_matrix()
@@ -141,11 +143,16 @@ while running:
             automat.gen_running()
             draw_matrix()
             pygame.display.update()
-            time.sleep(1)
+            time.sleep(0.5)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
 
-        time.sleep(100)
+        time.sleep(15)
+        running = False
+
+
+
+

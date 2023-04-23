@@ -2,11 +2,12 @@ def probability_to_spread(s_level):  # Probability of spreading the rumor
     if s_level == 1 or s_level == 0:  # 0 for the case that the level of skepticism temporarily decreased by one
         return 1
     if s_level == 2:
-        return 2/3
+        return 2 / 3
     if s_level == 3:
-        return 1/3
+        return 1 / 3
     if s_level == 4:
         return 0
+
 
 class Person:
     def __init__(self, s):
