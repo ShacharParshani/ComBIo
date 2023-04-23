@@ -22,9 +22,9 @@ class Automaton:
         probabilities = [self.pros1, self.pros2, self.pros3, self.pros4]
 
         # Generate a random number from the options with specified probabilities
-        random_num = random.choices(options, probabilities)[0]
         for i in range(100):
             for j in range(100):
+                random_num = random.choices(options, probabilities)[0]
                 self.matrix[i][j] = Person.Person(random_num)
 
     def print_array(self):

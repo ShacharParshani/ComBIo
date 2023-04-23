@@ -141,7 +141,7 @@ while running:
             automat.gen_running()
             draw_matrix()
             pygame.display.update()
-            time.sleep(2)
+            time.sleep(1)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
