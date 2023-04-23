@@ -150,7 +150,7 @@ while running:
                     pygame.quit()
                     exit()
 
-        time.sleep(15)
+        time.sleep(40)
         running = False
 
 
