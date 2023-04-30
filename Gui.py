@@ -48,6 +48,7 @@ def submit_function():
                         float(endGen_text_box.input_text))
     print(automat.p)
 
+
 def draw_matrix():
     # Draw the matrix
     cell_size = 7
@@ -150,7 +151,7 @@ while running:
                     pygame.quit()
                     exit()
 
-        time.sleep(40)
+        time.sleep(30)
         running = False
 
 

@@ -1,11 +1,13 @@
 import pygame
 
+
 class InputTextBox:
     def __init__(self, title, input_box):
         self.title = title
         self.input_box = input_box
         self.input_text = ""
         self.cursor_pos = 0
+
     def GetPos(self, event, font, screen):
         if event.key == pygame.K_BACKSPACE:
             self.input_text = self.input_text[:-1]
@@ -45,4 +47,3 @@ class InputTextBox:
         cursor_y1 = self.input_box.y + 5
         cursor_y2 = cursor_y1 + font.size(self.input_text)[1]
         pygame.draw.line(screen, (0, 0, 0), (cursor_pos_px, cursor_y1), (cursor_pos_px, cursor_y2))
-

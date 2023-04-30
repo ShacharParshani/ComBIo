@@ -24,92 +24,14 @@ class Automaton:
         probabilities_to_p = [1 - self.p, self.p]
 
         # Generate a random number from the options with specified probabilities
-        count = 0
         for i in range(100):
             for j in range(100):
                 random_exists = random.choices(options_to_p, probabilities_to_p)[0]  # random if man exists
                 if random_exists:
-                    count += 1
                     random_num = random.choices(options, probabilities)[0]  # random probabilities to s
                     self.matrix[i][j] = Person.Person(random_num)
                 else:
                     self.matrix[i][j] = None
-        print(count)
-
-    # def print_array(self):
-    #     for i in range(100):
-    #         for j in range(100):
-    #             if self.matrix[i][j].gen == -1:
-    #                 print("-", end='')
-    #             else:
-    #                 print("*", end='')
-    #         print("\n")
-    #     print("\n")
-    #     print("\n")
-    #     print("========================================")
-
-    def run(self):
-        self.create_matrix()
-        # random starter
-        row = random.randint(0, 99)
-        col = random.randint(0, 99)
-        self.matrix[row][col].gen = 0
-        self.print_array()
-        time.sleep(5)  # waits for 1 second
-
-        self.matrix[row][col].prevent = 1
-        if row + 1 < 100:
-            self.matrix[row + 1][col].gen = 1
-            self.matrix[row + 1][col].count_get = 1
-        if row - 1 > 0:
-            self.matrix[row - 1][col].gen = 1
-            self.matrix[row - 1][col].count_get = 1
-        if col + 1 < 100:
-            self.matrix[row][col + 1].gen = 1
-            self.matrix[row][col + 1].count_get = 1
-        if col - 1 > 0:
-            self.matrix[row][col - 1].gen = 1
-            self.matrix[row][col - 1].count_get = 1
-
-        self.print_array()
-        time.sleep(5)  # waits for 1 second
-
-        self.generation = 2
-        while self.generation <= self.endGen:
-            for i in range(100):  # spreading the rumor
-                for j in range(100):
-                    if self.matrix[i][j].gen == self.generation - 1 and self.matrix[i][j].prevent == 0:
-                        # got the rumor in the last generation and not prevented
-                        s = self.matrix[i][j].s if self.matrix[i][j].pre_count_get < 2 else self.matrix[i][j].s - 1
-                        pro_spread = Person.probability_to_spread(s)
-                        outcomes = [0, 1]
-                        weights = [1 - pro_spread, pro_spread]
-                        is_spread = random.choices(outcomes, weights)[0]
-                        if is_spread == 1:
-                            self.matrix[i][j].prevent = self.generation
-                            if i + 1 < 100:
-                                self.matrix[i + 1][j].gen = self.generation
-                                self.matrix[i + 1][j].count_get += 1
-                            if i - 1 > 0:
-                                self.matrix[i - 1][j].gen = self.generation
-                                self.matrix[i - 1][j].count_get += 1
-                            if j + 1 < 100:
-                                self.matrix[i][j + 1].gen = self.generation
-                                self.matrix[i][j + 1].count_get += 1
-                            if j - 1 > 0:
-                                self.matrix[i][j - 1].gen = self.generation
-                                self.matrix[i][j - 1].count_get += 1
-            for i in range(100):
-                for j in range(100):
-                    self.matrix[i][j].pre_count_get = self.matrix[i][j].count_get
-                    self.matrix[i][j].count_get = 0
-                    if (self.generation - self.matrix[i][j].prevent) > self.l:
-                        self.matrix[i][j].prevent = 0
-            self.generation += 1  # update the generation
-            print(self.generation, " ", )
-            self.print_array()
-            time.sleep(5)
-            # waits for 1 second
 
     def random_starter(self):
         is_found_starter = False
@@ -178,7 +100,5 @@ class Automaton:
 
         self.generation += 1  # update the generation
         print(self.generation, " ", )
-        # self.print_array()
-        # time.sleep(5)
 
 
